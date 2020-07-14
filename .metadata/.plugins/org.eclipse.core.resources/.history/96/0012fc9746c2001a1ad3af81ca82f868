@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.BoardMapper">
+	
+	<!-- html에서 꺽쇠는 태그를 시작하는 의미가 있기때문에 크다작다인지 태그시작인지 헷깔려함 -->
+	<select id="list" resultType="com.spring.domain.BoardVO">
+		<!-- CDATA : <,>를 크다 작다의 의미로 나타내줌 -->
+		<![CDATA[
+		select * 
+		from (select /*+INDEX_DESC(spring_board pk_spring_board)*/
+				ROWNUM rn,bno,title,writer,regdate,updatedate
+				from spring_board 
+				where 
+		]]>		
+		<include refid="criteria"></include>
+		<![CDATA[
+				bno>0 and rownum <= (#{pageNum}*#{amount}))
+			where rn > (#{pageNum}-1)*#{amount}
+		]]>
+	</select>
+	
+	<!-- total 게시물 수 알아내기 -->
+	<select id="total" resultType="int">
+		select count(*) from spring_board where bno>0
+	</select>
+	
+	<select id="read" resultType="com.spring.domain.BoardVO">
+		select * from spring_board where bno=#{bno}
+	</select>
+
+	<insert id="register">
+		<selectKey keyProperty="bno" order="BEFORE" resultType="int">
+		<!-- bno라는 값에 담는데 bno는 vo에 있기 떄문에 vo에 담겨있다 생각하면 된다 -->
+		<!-- 주로 pk 값을 미리 sql을 통해서 처리해 두고 특정한 이름으로 보관 -->
+			select seq_board.nextval from dual
+		</selectKey>
+		insert into spring_board(bno,title,content,writer) 
+		values(#{bno},#{title},#{content},#{writer})
+	</insert>
+	
+	<update id="modify">
+		update spring_board set title=#{title}, content=#{content}, writer=#{writer} where bno=#{bno} 
+	</update>
+	
+	<delete id="delete">
+		delete from spring_board where bno = #{bno}
+	</delete>
+	
+	<!-- 동적 sql 작성 -->
+	<!-- (title like '%흠%' or content like '%흠%') and -->
+	<!-- getTypeArr = typeArr -->
+	<sql id="criteria">
+		<trim prefix="(" suffix=")" AND" prefixOverrides="OR">
+			<foreach collection="typeArr" item="type">
+				<trim prefix="OR">
+					<when test="type=='T'.toString()">
+						title like '%'||{keyword}||'%'
+					</when>
+					<when test="type=='C'.toString()">
+						content like '%'||{keyword}||'%'
+					</when>
+					<when test="type=='W'.toString()">
+						writer like '%'||{keyword}||'%'
+					</when>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

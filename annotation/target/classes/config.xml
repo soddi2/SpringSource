@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 필요한 객체는 bean으로 생성한 후 객체가 필요한 주비상태는 @Autowired 사용 -->
+	<bean id="tv" class="com.spring.autowired.LgTV"></bean>
+	<bean id="sony" class="com.spring.autowired.SonySpeaker"></bean>
+	<bean id="samsung" class="com.spring.autowired.SamsungSpeaker"></bean>
+	<!-- @autowired 활성화 / @qualifier 활성화 -->
+	<context:annotation-config/>
+</beans>

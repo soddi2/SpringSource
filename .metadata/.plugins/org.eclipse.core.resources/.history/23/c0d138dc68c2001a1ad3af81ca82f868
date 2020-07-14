@@ -1,0 +1,15 @@
+package com.spring.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController //리턴값을 마음대로 전송할 수 있음
+//@Controller
+public class RestControllerTest {
+	
+	@GetMapping(value="/hello",produces="text/plain;charset=utf-8")
+	public String sayHello() {
+		return "박유성관계"; 
+	}
+}

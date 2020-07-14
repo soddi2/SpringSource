@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;book_selectAll.jsp&apos; to &apos;book_selectAll.jsp&apos;&#x0D;&#x0A;- Original project: &apos;bookmvc_rest&apos;&#x0D;&#x0A;- Destination element: &apos;book_selectAll.jsp&apos;&#x0D;&#x0A;- Original element: &apos;book_selectAll.jsp&apos;" description="Copy file" element1="src/main/webapp/WEB-INF/views/book_selectAll.jsp" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1594610237562" target="/bookmvc_rest/src/main/webapp/WEB-INF/views/book_selectAll.jsp" units="0" version="1.0"/>
+</session>

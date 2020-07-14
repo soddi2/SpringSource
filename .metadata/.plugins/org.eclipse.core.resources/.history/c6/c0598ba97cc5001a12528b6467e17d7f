@@ -1,0 +1,13 @@
+package com.spring.service;
+
+import com.spring.domain.replyVO;
+
+public class ReplyServiceImpl implements ReplyService {
+
+	@Override
+	public boolean insert(replyVO vo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.PersonMapper">
+<!-- 아이디는 멥퍼의 메소드 이름과 같게 해야한다 -->
+	<insert id="insertPerson">
+		insert into person(id,name) values(#{id},#{name})
+	</insert>
+	<select id="selectPerson" resultType="java.lang.String">
+		select * from person where id=#{id}
+	</select>
+	<select id="selectPersons" resultType="com.spring.domain.PersonVO">
+		select * from person
+	</select>
+	<update id="updatePerson">
+		update person set name=#{name} where id=#{id}
+	</update>
+	<delete id="deletePerson">
+		delete from person where id=#{id}
+	</delete>
+</mapper>

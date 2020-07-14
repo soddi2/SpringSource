@@ -1,0 +1,51 @@
+package com.spring.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.spring.domain.ReplyVO;
+import com.spring.service.ReplyService;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RestController
+@RequestMapping("/replies/*")
+public class ReplyController {
+	
+	@Autowired
+	private ReplyService service;
+	
+	@PostMapping("/new") // http://localhost:8080/
+	public void create(@RequestBody ReplyVO vo) { 
+		log.info("댓글 등록.....");
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

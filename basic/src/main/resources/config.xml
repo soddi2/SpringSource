@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 스프링에서 관리하는 객체 : bean -->
+	<!-- new SamsungTV()와 같은 역할 -->
+	<bean id="tv" class="com.spring.basic.SamsungTV"/> 
+	<bean id="msg" class="com.spring.basic.MessageBean"/>
+	
+	<!-- di에서 필요한 객체 -->
+	<!-- Setter Injection : set메소드를 통한 주입 -->
+	<bean id="tv2" class="com.spring.di.SamsungTV"> <!-- 객체생성하는 코드 -->
+		<property name="speaker" ref="samsung"></property> 
+		<!-- int,string 같은 필드는 value / 객체는 ref -->
+		<property name="price" value="30000" /> 
+	</bean>
+	<bean id="sony" class="com.spring.di.SonySpeaker"/>
+	<bean id="samsung" class="com.spring.di.SamsungSpeaker" />	
+	
+	<!-- constructor : 디폴트 생성자 -->
+	<bean id="tv3" class="com.spring.di.LgTV">
+		<constructor-arg ref="sony" />
+		<constructor-arg value="20000" />
+	</bean>
+	<!-- 받는게 있을때만 빈 사이에 넣는다 -->
+	<bean id="msg2" class="com.spring.di.MessageBean" >
+		<!-- <constructor-arg value="안유성"  ></constructor-arg> 
+		<constructor-arg value="땡큐"  ></constructor-arg> -->
+		<constructor-arg name="greeting" value="안유성"  ></constructor-arg> 
+		<constructor-arg name="name" value="땡큐"  ></constructor-arg>
+	</bean>	
+
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+<typeInfo handle="=simpleboard/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.service{Boardservice.java[Boardservice" modifiers="513" timestamp="1593154911552"/>
+<typeInfo handle="=simplebook/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.service{BookService.java[BookService" modifiers="513" timestamp="1593395020014"/>
+<typeInfo handle="=simplemember/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.service{MemberService.java[MemberService" modifiers="513" timestamp="1593397602648"/>
+<typeInfo handle="=aop_factorial/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.factorial{Calculator.java[Calculator" modifiers="513" timestamp="1593414036156"/>
+<typeInfo handle="=mybatis/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.service{PersonService.java[PersonService" modifiers="513" timestamp="1593497866455"/>
+<typeInfo handle="=Transaction/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.service{SampleService.java[SampleService" modifiers="513" timestamp="1593564185725"/>
+<typeInfo handle="=SpringRegister/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.mapper{MemberMapper.java[MemberMapper" modifiers="513" timestamp="1594012268582"/>
+<typeInfo handle="=SpringRegister/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.service{changPwdService.java[changPwdService" modifiers="513" timestamp="1594004317352"/>
+<typeInfo handle="=Board/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.service{BoardService.java[BoardService" modifiers="513" timestamp="1594343209190"/>
+</typeInfoHistroy>

@@ -1,0 +1,27 @@
+package com.spring.interceptor;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+public class SampleInterceptor extends HandlerInterceptorAdapter {
+	
+	//pre에서 넘어온 요청 검토
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		// TODO Auto-generated method stub
+		super.postHandle(request, response, handler, modelAndView);
+	}
+	
+	
+	//doa로 오는 요청 검토
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception { 
+		System.out.println("pre Handle");
+		return true;
+	}
+}
