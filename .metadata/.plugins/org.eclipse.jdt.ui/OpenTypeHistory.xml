@@ -9,4 +9,7 @@
 <typeInfo handle="=SpringRegister/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.mapper{MemberMapper.java[MemberMapper" modifiers="513" timestamp="1594012268582"/>
 <typeInfo handle="=SpringRegister/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.service{changPwdService.java[changPwdService" modifiers="513" timestamp="1594004317352"/>
 <typeInfo handle="=Board/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.service{BoardService.java[BoardService" modifiers="513" timestamp="1594343209190"/>
+<typeInfo handle="=Board/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.service{ReplyService.java[ReplyService" modifiers="513" timestamp="1594711018515"/>
+<typeInfo handle="=sample/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.service{PartnerService.java[PartnerService" modifiers="513" timestamp="1594719299124"/>
+<typeInfo handle="=sample/C:\/Users\/students\/.m2\/repository\/org\/aspectj\/aspectjweaver\/1.9.5\/aspectjweaver-1.9.5.jar=/maven.pomderived=/true=/=/org.eclipse.jst.component.dependency=/\/WEB-INF\/lib=/=/maven.pomderived=/true=/=/org.eclipse.jst.component.archivename=/aspectjweaver-1.9.5.jar=/=/maven.groupId=/org.aspectj=/=/maven.artifactId=/aspectjweaver=/=/maven.version=/1.9.5=/=/maven.scope=/compile=/&lt;org.aspectj.util(PartialOrder$PartialComparable.class[PartialComparable" modifiers="1545" timestamp="1594599905597"/>
 </typeInfoHistroy>

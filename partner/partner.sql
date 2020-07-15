@@ -1,5 +1,5 @@
 create table partner(
-id number(8) not null,
+id number(8) not null, 
 name varchar2(100) not null,
 ceo varchar2(20),
 contact varchar2(20),

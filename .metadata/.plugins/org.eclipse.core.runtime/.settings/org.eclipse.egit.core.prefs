@@ -1,5 +1,5 @@
-GitRepositoriesView.GitDirectories=
-GitRepositoriesView.GitDirectories.relative=
+GitRepositoriesView.GitDirectories=D\:\\soddi\\springsource\\.git;
+GitRepositoriesView.GitDirectories.relative=.git;
 RepositorySearchDialogSearchPath=D\:\\soddi\\springsource
 core_autoIgnoreDerivedResources=false
 eclipse.preferences.version=1

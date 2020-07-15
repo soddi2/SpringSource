@@ -1,9 +1,0 @@
-package com.spring.domain;
-
-import lombok.Data;
-
-@Data
-public class GetListVO {
-	private String criteria;
-	private String keyword;
-}

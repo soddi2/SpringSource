@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.PartnerMapper">
+
+	<!-- C(insert)R(select)U(update)D(delete) -->
+	<!-- not null 넣은건 partner(에 안들어가도 됨) -->
+	<!-- ibatis나 mybais나 그게 그거임 -->
+	<insert id="create">
+		insert into partner(id,name,ceo,contact,address) values(partner_seq.nextVal,#{name},#{ceo},#{contact},#{address})
+	</insert>
+	
+	
+</mapper>
