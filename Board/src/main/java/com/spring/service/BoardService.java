@@ -2,6 +2,8 @@ package com.spring.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.spring.domain.BoardVO;
 import com.spring.domain.Criteria;
 
@@ -14,4 +16,5 @@ public interface BoardService {
 	public BoardVO read(BoardVO read);
 	public boolean modify(BoardVO modify);
 	public boolean delete(int bno);
+	public int updateReply(int bno,int amount);
 }

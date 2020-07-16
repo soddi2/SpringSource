@@ -36,9 +36,9 @@
 	
 	<!-- 트랜잭션 설정 -->
 	<!-- 트랜잭션 매니저 설정 -->
-	<!-- <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="ds"/>
-	</bean> -->
+	</bean>
 	
 	<!-- 트랜잭션 어드바이스 설정 -->
 	<!-- <tx:advice id="txAdvice" transaction-manager="transactionManager">
@@ -54,7 +54,7 @@
 	</aop:config> -->
 
 	<!-- 트랜잭션 어노테이션(AOP) 설정 -->
-	<!-- <tx:annotation-driven/>
-	<aop:aspectj-autoproxy /> -->
+	<tx:annotation-driven/>
+	<aop:aspectj-autoproxy />
 		
 </beans>

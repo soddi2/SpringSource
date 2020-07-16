@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.mapper.BoardMapper">
+
+	<!-- 댓글 수 변경 : 삽입 amount => +1, 삭제 amount -1 -->
+	<update id="updateReplyCnt">
+		update spring_board set replycnt = replycnt + #{amount}
+		where bno = #{bno}
+	</update>
 	
 	<!-- html에서 꺽쇠는 태그를 시작하는 의미가 있기때문에 크다작다인지 태그시작인지 헷깔려함 -->
 	<select id="list" resultType="com.spring.domain.BoardVO">
@@ -8,7 +14,7 @@
 		<![CDATA[
 		select * 
 		from (select /*+INDEX_DESC(spring_board pk_spring_board)*/
-				ROWNUM rn,bno,title,writer,regdate,updatedate
+				ROWNUM rn,bno,title,writer,regdate,updatedate,replycnt
 				from spring_board 
 				where 
 		]]>		

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.domain.BoardVO;
 import com.spring.domain.Criteria;
+import com.spring.domain.ReplyPageVO;
 import com.spring.domain.ReplyVO;
 import com.spring.service.ReplyService;
 
@@ -78,12 +79,12 @@ public class ReplyController {
 	// http://localhost:8080/replies/pages/1068/3
 	// 1068에 해당하는 첫번째 페이지 댓글 가져오기
 	@GetMapping("/pages/{bno}/{pageNum}")
-	public ResponseEntity<List<ReplyVO>> replylist(@PathVariable("bno") int bno,@PathVariable("pageNum") int page){
+	public ResponseEntity<ReplyPageVO> replylist(@PathVariable("bno") int bno,@PathVariable("pageNum") int page){
 		log.info("댓글 가져오기 "+bno+" page = "+page);
 		
 		Criteria cri = new Criteria(page, 10);
 		
-		return new ResponseEntity<List<ReplyVO>>(service.replylist(cri, bno),HttpStatus.OK);
+		return new ResponseEntity<ReplyPageVO>(service.replylist(cri, bno),HttpStatus.OK);
 	}
 }
 

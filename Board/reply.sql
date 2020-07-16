@@ -10,5 +10,4 @@ create table spring_reply(
 
 create sequence seq_reply;
 
-
 select * from spring_reply;

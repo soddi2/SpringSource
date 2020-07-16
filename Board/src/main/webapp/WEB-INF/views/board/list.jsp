@@ -42,7 +42,9 @@
                                     <tr>
                                         <th>${list.bno}</th>
                                         <!-- ? : 제목에 bno를 달아주기 parameter(?bno=&title)-->
-                                        <td><a href="<c:out value='${list.bno}' />" class="move">${list.title}</a></td>
+                                        <!-- &nbsp; : 스페이스바 한번, <br> : 엔터 -->
+                                        <!-- html => 공백 여러개와 엔터가 적용이 안됨 -->
+                                        <td><a href="<c:out value='${list.bno}' />" class="move">${list.title}</a>&nbsp;&nbsp;<strong>[${list.replycnt}]</strong></td>
                                         <td>${list.writer}</td>
                                         <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value='${list.regdate}'/></td>
                                         <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value='${list.updatedate}'/></td>

@@ -14,7 +14,12 @@
 <aop-project name="simplebook_cp"/>
 <aop-project name="simpleboard"/>
 <aop-project name="bookmvc"/>
-<aop-project name="Board"/>
+<aop-project name="Board">
+<aspect-definition advice-class-name="org.springframework.transaction.interceptor.TransactionInterceptor" advice-method-name="invoke" advice-method-parameter-types="org.aopalliance.intercept.MethodInvocation" advice-type="AROUND" aspect-end-line-number="57" aspect-name="org.springframework.transaction.interceptor.TransactionInterceptor#Board#src/main/webapp/WEB-INF/spring/root-context.xml#57" aspect-start-line-number="57" factory-id="org.springframework.ide.eclipse.aop.core.javaAdvisorDefinitionElementFactory" file="/Board/src/main/webapp/WEB-INF/spring/root-context.xml" pointcut-expression="(@within(org.springframework.transaction.annotation.Transactional) || @annotation(org.springframework.transaction.annotation.Transactional)) &amp;&amp; execution(* *..*(..))" proxy-target-class="false">
+<aop-reference advice-type="AROUND" bean="1:BeansModel|2:Board|3:src/main/webapp/WEB-INF/spring/root-context.xml|7:beans:14|8:replyServiceImpl:14" bean-file="/Board/src/main/webapp/WEB-INF/spring/root-context.xml" bean-start-line="14" factory-id="org.springframework.ide.eclipse.aop.core.aopReferenceElementFactory" file="/Board/src/main/webapp/WEB-INF/spring/root-context.xml" source="=Board/C:\/Users\/students\/.m2\/repository\/org\/springframework\/spring-tx\/5.2.4.RELEASE\/spring-tx-5.2.4.RELEASE.jar=/maven.pomderived=/true=/=/org.eclipse.jst.component.dependency=/\/WEB-INF\/lib=/=/maven.pomderived=/true=/=/org.eclipse.jst.component.archivename=/spring-tx-5.2.4.RELEASE.jar=/=/maven.groupId=/org.springframework=/=/maven.artifactId=/spring-tx=/=/maven.version=/5.2.4.RELEASE=/=/maven.scope=/compile=/&lt;org.springframework.transaction.interceptor(TransactionInterceptor.class[TransactionInterceptor~invoke~Lorg.aopalliance.intercept.MethodInvocation;" source-start-line="-1" target="=Board/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.service{ReplyServiceImpl.java[ReplyServiceImpl~replyInsert~QReplyVO;" target-start-line="27"/>
+<aop-reference advice-type="AROUND" bean="1:BeansModel|2:Board|3:src/main/webapp/WEB-INF/spring/root-context.xml|7:beans:14|8:replyServiceImpl:14" bean-file="/Board/src/main/webapp/WEB-INF/spring/root-context.xml" bean-start-line="14" factory-id="org.springframework.ide.eclipse.aop.core.aopReferenceElementFactory" file="/Board/src/main/webapp/WEB-INF/spring/root-context.xml" source="=Board/C:\/Users\/students\/.m2\/repository\/org\/springframework\/spring-tx\/5.2.4.RELEASE\/spring-tx-5.2.4.RELEASE.jar=/maven.pomderived=/true=/=/org.eclipse.jst.component.dependency=/\/WEB-INF\/lib=/=/maven.pomderived=/true=/=/org.eclipse.jst.component.archivename=/spring-tx-5.2.4.RELEASE.jar=/=/maven.groupId=/org.springframework=/=/maven.artifactId=/spring-tx=/=/maven.version=/5.2.4.RELEASE=/=/maven.scope=/compile=/&lt;org.springframework.transaction.interceptor(TransactionInterceptor.class[TransactionInterceptor~invoke~Lorg.aopalliance.intercept.MethodInvocation;" source-start-line="-1" target="=Board/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.service{ReplyServiceImpl.java[ReplyServiceImpl~replyDelete~I" target-start-line="48"/>
+</aspect-definition>
+</aop-project>
 <aop-project name="webmvc"/>
 <aop-project name="test"/>
 <aop-project name="simplemember_cp"/>
@@ -45,6 +50,7 @@
 </aop-project>
 <aop-project name="simpleboard_cp_jdbc_dao"/>
 <aop-project name="bookmvc_rest"/>
+<aop-project name="springfileupload"/>
 <aop-project name="simpleboard_cp"/>
 <aop-project name="annotation"/>
 </aop-reference-model>

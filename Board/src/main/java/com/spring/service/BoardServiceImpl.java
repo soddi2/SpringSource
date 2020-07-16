@@ -48,4 +48,9 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.total(cri);
 	}
 
+	@Override
+	public int updateReply(int bno, int amount) {
+		return mapper.updateReplyCnt(bno, amount);
+	}
+
 }

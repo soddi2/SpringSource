@@ -24,7 +24,8 @@
 		delete from spring_reply where rno = #{rno}
 	</delete>
 	
-	<!-- 댓글 전체 가져오기 -->
+	<!-- 댓글 가져오기 -->
+	<!-- 댓글 10개 끌고오기 -->
 	<select id="list" resultType="com.spring.domain.ReplyVO">
 		<![CDATA[
 		select * from (

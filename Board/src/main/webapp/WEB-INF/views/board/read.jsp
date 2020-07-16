@@ -69,6 +69,10 @@
 					</li>
 				</ul>
 			</div>
+			<!-- 만들어진 영역이기 떄문에 위임하는 형태로 해야함 -->
+			<div class="panel-footer"><!-- 댓글 페이지 영역 -->
+			
+			</div>
 		</div>
 	</div>
 </div>      
@@ -98,7 +102,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-warning" id="modalRegisterBtn">등록</button>
-        <button type="button" class="btn btn-success" id="modalModifyBtn">수정</button>
+        <button type="button" class="btn btn-success" id="modalModBtn">수정</button>
         <button type="button" class="btn btn-danger" id="modalRemoveBtn">삭제</button>
         <button type="button" class="btn btn-primary" id="modalCloseBtn" data-dismiss="modal">닫기</button>
       </div>
@@ -119,6 +123,7 @@ $(function() {
 	let form = $("#myForm");
 	
 	$(".btn-default").click(function() {
+		//bno는 삭제하기
 		form.attr('action','modify'); //http://~/board/modify
 		form.submit();
 	})
@@ -171,6 +176,14 @@ $(function(){
 	
 	//댓글 작업 호출
 	//댓글 등록하기
+	//$는 위에서 변수로 들어왔기 때문에 큰 의미는 없다
+	// on("click",~~) : click과 같은 역할인데,동적으로 나중에 바인딩 시킬  수 있는 기능이 추가 되어있음
+	//					여러 이벤트를 동시에 추가할 수 있음
+	//ex) .on("click","mouseenter",function()
+	
+	//댓글 페이지 나누기로 추가
+	let pageNum = 1;
+	
 	modalRegisterBtn.on("click",function(){
 		
 		var reply = {
@@ -185,16 +198,24 @@ $(function(){
 				modal.find("input").val("");
 				//모달 창 종료
 				modal.modal("hide");
-				//전체 댓글 리스트 보기
-				showList(1);
+				//전체 댓글 리스트 보기 
+				//-1로 변경해서 마지막 페이지 보여주기
+				showList(-1);
 				
 		}); //add 종료 		
 	}) 
 	
 	//댓글 리스트 요청하기
 	function showList(page){
-		 replyService.getList({bno:bno,page:page},function(list){
+		
+		 replyService.getList({bno:bno,page:page},function(total,list){
 			console.log(list);
+			
+			if(page == -1){
+				pageNum = Math.ceil(total / 10.0);
+				showList(pageNum);
+				return;
+			}
 			
 			if(list === null || list.length === 0){
 				replyUL.html("");
@@ -203,39 +224,117 @@ $(function(){
 			
 			let str = "";
 			for(var i=0,len=list.length||0; i<len; i++){ //반복할 구간
-				str+="<li class='left clearfix' data-rno='"+list[i].rno+"'>";
-				str+="<div><div class='header'>";
-				str+="<strong class='primary-font'>"+list[i].replyer+"</strong>";
-				str+="<small class='pull-right text-muted'>"+replyService.displayTime(list[i].replydate)+"</small>";
-				str+="</div><p>"+list[i].reply+"</p></div></li></ul></div></div></div></div>";
+				str += "<li class='left clearfix' data-rno='"+list[i].rno+"'>";
+				str += "<div><div class='header'>";
+				str += "<strong class='primary-font'>"+list[i].replyer+"</strong>";
+				str += "<small class='pull-right text-muted'>"+replyService.displayTime(list[i].replydate)+"</small>";
+				str += "</div><p>"+list[i].reply+"</p></div></li>";		
 			}
 			replyUL.html(str);
-			
+			showReplyPage(total);
 		})  //getList 종료		
 	}
 	
-	//댓글 삭제
-	/* replyService.remove({rno:20},
-			function(result){ alert(result); },
-			function(msg){
-				alert("삭제 실패");
-	}); */ //remove 종료
+
+	//댓글 페이지 영역 가져오기
+	let replyPageFooter = $(".panel-footer");
+	
+	function showReplyPage(total){
+		
+		//마지막 페이지 계산
+		let endPage = Math.ceil(pageNum/10.0)*10;
+		//시작 페이지 계산
+		let startPage = endPage - 9;
+		//이전 버튼
+		let prev = startPage != 1;
+		//다음 버튼 
+		let next = false;
+		
+		//실제 마지막 페이지 계산
+		if(endPage * 10 >= total){
+			endPage = Math.ceil(total/10.0);
+		}
+		if(endPage * 10 < total){
+			next = true;
+		}
+		
+		//디자인 작성후 댓글 페이지 영역에 보여주기
+		let str = "<ul class='pagination pull-right'>";
+		if(prev){
+			str += "<li class='page-item'><a class='page-link'";
+			str += " href='"+(startPage - 1)+"'>Prev</a></li>";
+		}
+		for(var i = startPage; i<= endPage; i++){
+			let active = pageNum == i ? "active":""; //pageNum = "2"면 스트링으로 넘어오는데 i는 int라 타입비교까지 하면 안됌
+			str += "<li class='page-item "+active+"'>";
+			str += "<a class='page-link' href='"+i+"'>"+i;
+			str += "</a></li>";
+		}
+		if(next){
+			str += "<li class='page-item'><a class='page-link'";
+			str += " href='"+(endPage + 1)+"'>Next</a></li>";
+		}
+		str += "</ul></div>";
+		replyPageFooter.html(str);
+	}
+	
+	//댓글 페이지 번호를 누르면 실행되는 스크립트
+	replyPageFooter.on("click","li a",function(e){
+		//href 때문에 움직이는 이벤트 제거
+		e.preventDefault();
+		
+		pageNum = $(this).attr("href");
+		showList(pageNum);
+	})
+	
+	
+	
+	
+	
+	//$(modalRemoveBtn).click(function()) 이렇게 걸어도 상관은 없지만 그냥 .on 쓰자
+	$(modalRemoveBtn).on("click",function(){		
+		//댓글 삭제
+		//json은 키 밸류값으로 가야한다고!!
+		replyService.remove({rno:modal.data("rno")},
+				function(result){ 
+					alert(result);
+					//모달 창 종료
+					modal.modal("hide");
+					//전체 댓글 리스트 보기
+					// showList(1);  페이지 나누기 전
+					showList(pageNum); //페이지 나누기 후 : 현재 보던 페이지
+	
+				},
+				function(msg){ 
+					alert("삭제 실패");
+		}) //remove 종료
+	})
 	
 	//댓글 수정
-	/* replyService.update({rno:100,reply:'댓글 내용 수정'
+	$(modalModBtn).on("click",function(){
 		
-		},function(result){
-			alert(result);
-		},function(error){
-			alert("수정실패");
-	}) */	 //update 종료
+		replyService.update({rno:modal.data("rno"),reply:modalInputReply.val()},function(result){
+							alert(result);
+							
+							//모달 창 종료
+							modal.modal("hide");
+							
+							//전체 댓글 리스트 보기
+							// showList(1);  페이지 나누기 전
+							showList(pageNum); //페이지 나누기 후 : 현재 보던 페이지
+							
+						},function(error){
+							alert("수정 실패");
+			
+		})   //update 종료
+	})
 	
 	//댓글 하나 가져오기
 	//json {key : value}
 	//실제로는 li에 이벤트를 걸어야 하지만 댓글이 나중에 생기는 
 	//부분이기 때문에 존재하는 영역에 댓글을 걸고 나중에 생기는 
 	//li 태그에 위임하는 방식으로 작성
-	$(".chat").on("click","li",function(){
+	$(".chat").on("click","li",function(){ //동적 바인딩 방식 나중에 생기는 영역은 인식을 못함  그냥 클릭은 현재 태그가 만들어져 있는 건 동작을 하지만 나중에 만든건 동작을 안함
 		
 		//현재 클릭된 댓글의 rno를 가져오기
 		var rno = $(this).data("rno");
@@ -253,7 +352,15 @@ $(function(){
 					//현재 읽어온 rno 담아주기
 					modal.data("rno",result.rno);
 					
+					//반복 작업시 버튼 다시 보여주기
+					modal.find("button").show();
+					
 					//등록 버튼 지우기
+					modal.find("button[id='modalRegisterBtn']").hide();
+					
+					//작성 날짜 영역 보여주기
+					modalInputReplyDate.closest("div").show();
+					modal.find("button").show();
 					modal.find("button[id='modalRegisterBtn']").hide();
 					
 					modal.modal("show");

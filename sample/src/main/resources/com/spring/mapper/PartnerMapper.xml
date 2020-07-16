@@ -9,5 +9,17 @@
 		insert into partner(id,name,ceo,contact,address) values(partner_seq.nextVal,#{name},#{ceo},#{contact},#{address})
 	</insert>
 	
+	<!-- pk가 검색 조건이면 하나만 나오니까 vo로 pk가 조건이 아니고 like가 붙느면 list로  -->
+	<select id="read" resultType="com.spring.domain.PartnerVO">
+		select * from partner
+	</select>
+	
+	<delete id="delete">
+		delete from partner where id=#{id}
+	</delete>
+	
+	<update id="update">
+		update partner set id=#{id} where 
+	</update>
 	
 </mapper>

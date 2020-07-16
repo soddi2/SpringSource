@@ -28,16 +28,21 @@ let replyService=(function(){ //익명 함수
 	
 	function getList(param,callback){
 		let bno = param.bno;
-		let page = param.page || 1;
+		let page = param.page || 1; //페이지 값으 들어오면 들어온 페이지값이 들어가고 안들어 오면 1
+		
+		
 		
 		console.log("bno : "+bno);
 		console.log("page : "+page);
 		
 		let url = "/replies/pages/"+bno+"/"+page;
 		
-		$.getJSON(url, function(data) {
+		$.getJSON(url, function(data) {			
+			console.log(data);
 			if(callback){ //뭔가 함수 받은게 있으면 받아온 데이터 넘기기
-				callback(data);
+				//data.replyCnt : 전체 댓글 수
+				//data.list : 댓글 리스크
+				callback(data.replyCnt,data.list);
 			}
 		})
 		
@@ -48,7 +53,8 @@ let replyService=(function(){ //익명 함수
 		
 		console.log("rno : "+rno);
 		$.ajax({
-			url : '/replies/rno', // http://localhost:8081/replies/3
+			//url 확인 
+			url : '/replies/'+rno, // http://localhost:8081/replies/3
 			type : 'delete',
 			success:function(result){
 				if(callback){

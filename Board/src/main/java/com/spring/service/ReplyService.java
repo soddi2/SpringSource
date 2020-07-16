@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.spring.domain.Criteria;
+import com.spring.domain.ReplyPageVO;
 import com.spring.domain.ReplyVO;
 
 //변수명,메소드명 규칙 (카멜케이스)
@@ -20,7 +21,7 @@ public interface ReplyService {
 	public boolean replyUpdate(ReplyVO vo);
 	public boolean replyDelete(int rno);
 	
-	public List<ReplyVO> replylist(Criteria cri,int bno);
+	public ReplyPageVO replylist(Criteria cri,int bno);
 	//public int getCountByBno(int bno);
 }
 

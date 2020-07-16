@@ -2,6 +2,8 @@ package com.spring.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.spring.domain.BoardVO;
 import com.spring.domain.Criteria;
 
@@ -12,4 +14,5 @@ public interface BoardMapper {
 	public BoardVO read(BoardVO read);
 	public int modify(BoardVO modify);
 	public int delete(int bno);
+	public int updateReplyCnt(@Param("bno") int bno,@Param("amount") int amount);
 }

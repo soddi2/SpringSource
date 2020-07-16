@@ -37,6 +37,8 @@ pageEncoding="UTF-8"%>
             </thead>
             <tbody>
               <!-- 파트너 리스트 반복문 -->
+              <!-- el은 그냥 쓸수 있음 jsp에 들어 있음 -->
+              <!-- c:if,c:foreach는 jstl을 불러다 줘야 쓸수 있음 -->
               <c:forEach var="list" items="${list}">
               <tr class="text-center">
                 <td>${list.id}</td>
