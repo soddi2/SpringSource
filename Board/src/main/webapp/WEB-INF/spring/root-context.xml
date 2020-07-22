@@ -6,8 +6,10 @@
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
@@ -15,6 +17,7 @@
 	
 	<!-- Connection Pool / SqlSession -->
 	<context:component-scan base-package="com.spring.service" />
+	<context:component-scan base-package="com.spring.task"/>
 	<mybatis-spring:scan base-package="com.spring.mapper"/>
 	
 	<!-- connection pool -->
@@ -56,5 +59,8 @@
 	<!-- 트랜잭션 어노테이션(AOP) 설정 -->
 	<tx:annotation-driven/>
 	<aop:aspectj-autoproxy />
+		
+	<!-- 스케쥴링 -->	
+	<task:annotation-driven/>	
 		
 </beans>

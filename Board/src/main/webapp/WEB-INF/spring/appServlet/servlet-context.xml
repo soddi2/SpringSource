@@ -23,6 +23,8 @@
 	
 	<context:component-scan base-package="com.spring.controller" />
 	
-	
-	
+	<!-- 파일 업로드 담당 클래스 생성 -->
+	<beans:bean id="multipartResolver" 
+			class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
 </beans:beans>

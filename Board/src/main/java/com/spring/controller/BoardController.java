@@ -1,16 +1,24 @@
 package com.spring.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.domain.AttachFileVO;
 import com.spring.domain.BoardVO;
 import com.spring.domain.Criteria;
 import com.spring.domain.PageVO;
@@ -34,7 +42,12 @@ public class BoardController {
 	//글 등록하기
 	@PostMapping("/register")
 	public String registerPost(BoardVO vo,RedirectAttributes rttr) {
-		log.info(""+vo);
+		log.info("글 등록 요청"+vo);
+		
+		//파일 확인
+		if(vo.getAttachList()!=null) {
+			vo.getAttachList().forEach(attach -> log.info(attach+""));
+		}
 		
 		try {
 			boolean regi = service.register(vo);
@@ -48,7 +61,7 @@ public class BoardController {
 		} catch (Exception e) {
 			return "redirect:/board/list";
 		}
-				
+//		return "redirect:/board/list";		
 	}
 	
 	//읽기,읽기에서 수정으로
@@ -98,6 +111,7 @@ public class BoardController {
 		log.info(""+cri);
 		log.info(""+modify);
 		
+
 		boolean modi = service.modify(modify);
 		
 		if(modi) {
@@ -119,11 +133,15 @@ public class BoardController {
 		}
 	}
 	
+	//내용 삭제
 	@PostMapping("/remove")
 	public String delete(BoardVO vo,int bno,RedirectAttributes rttr,Criteria cri) {
 		
-		boolean del = service.delete(bno);
+		//현재 글번호에 해당하는 첨부파일 목록을 서버에서 삭제하기 위해서 bno에 해당하는 첨부파일 리스트 가져오기
+		List<AttachFileVO> attachList = service.attachList(bno);
 		
+		boolean del = service.delete(bno);		
+		deleteFiles(attachList);
 		if(del) {
 			rttr.addAttribute("pageNum",cri.getPageNum());
  			rttr.addAttribute("amount",cri.getAmount());
@@ -136,7 +154,49 @@ public class BoardController {
 		rttr.addAttribute("bno", vo.getBno());
 		return "/board/modify";
 	}
+	
+	//첨부물 가져오기 컨트롤러 작성
+	//put과 delete 는 반드시 json의 형태로 보내야 한다
+	//get과 post는 파라미터 처리해서 보내면 됨
+	
+	//put이나 delete는 애네 데이터를 보낼라면 @responsbody를 써야함
+	//rest과 그냥 컨트롤러의 차이점은 rest는 return하는 타입이 jsp가 아니다 타입을 던지면 그대로 데이터로 받아들인다.
+	
+	//ResponseEntity : 데이터를 보내면서 내가 상태코드를 같이 보낼수 있다. 상태코드를 무엇을 보내냐에 따라 에러로 처리
+	//컨트롤어노테이션에 @responsebody를 보내면 jsp가 아닌 그냥 list로 보낼수 있음
+	
+	@GetMapping("/getAttachList")
+	public ResponseEntity<List<AttachFileVO>> getattachlist(int bno) {
+		log.info("첨부물 가져오기 : " +bno);
+		return new ResponseEntity<List<AttachFileVO>>(service.attachList(bno),HttpStatus.OK);
+	}
+	
+	//게시글 삭제 시 서버 폴더에 첨부를 삭제
+	private void deleteFiles(List<AttachFileVO> attachList) {
+		if(attachList == null || attachList.size() == 0) {
+			return;
+		}
+		
+		for(AttachFileVO vo : attachList) {
+			Path file = Paths.get("d:\\upload\\",vo.getUploadPath()+"\\"+vo.getUuid()+"_"+vo.getFileName());
+
+			try {
+				//일반파일, 이미지 원본 파일 삭제				
+				Files.deleteIfExists(file);
+				
+				//썸네일 삭제
+				if(Files.probeContentType(file).startsWith("image")) {
+					Path thumb = Paths.get("d:\\upload\\",vo.getUploadPath()+"\\s_"+vo.getUuid()+"_"+vo.getFileName());
+					Files.delete(thumb);
+				}
+			} catch (IOException e) {				
+				e.printStackTrace();
+			}
+			
+		}
+	}	
 }
+
 
 
 

@@ -1,8 +1,0 @@
-package com.spring.mapper;
-
-import com.spring.domain.ReplyVO;
-
-public interface ReplyMapper {
-	public int insert(ReplyVO vo);
-	public re
-}

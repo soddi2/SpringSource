@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.spring.domain.AttachFileVO;
 import com.spring.domain.BoardVO;
 import com.spring.domain.Criteria;
 
@@ -17,4 +18,7 @@ public interface BoardService {
 	public boolean modify(BoardVO modify);
 	public boolean delete(int bno);
 	public int updateReply(int bno,int amount);
+	
+	//첨부물 기능
+	public List<AttachFileVO> attachList(int bno);
 }

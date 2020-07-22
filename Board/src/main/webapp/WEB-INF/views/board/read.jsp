@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<link rel="stylesheet" href="/resources/css/mycss.css" />
 <%@include file="../includes/header.jsp" %>
             <div class="row">
                 <div class="col-lg-12">
@@ -41,7 +41,26 @@
                 		</div>
                 	</div>
                 </div>
-            </div> 
+            </div>   
+<!-- 첨부파일 영역 -->
+<div class="bigPictureWrapper">
+	<div class="bigPicture"></div>
+</div>
+<div class="row">
+	<div class="col-lo-12">
+		<div class="panel panel-default">
+			<div class="panel-heading"><i class="fa fas fa-file"></i>Files</div>
+			<div class="panel-body">
+				<div class="form-group uploadDiv">
+					<input type="file" name="uploadFile" multiple="multiple" />
+				</div>
+				<div class="uploadResult">
+					<ul></ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <!-- 댓글 영역 -->
 <div class="row">
 	<div class="col-lg-12">
@@ -137,11 +156,76 @@ $(function() {
 </script>
 <script src="/resources/js/reply.js"></script>
 <script>
+//에니메이션 이미지
+function showImage(fileCallPath){
+	$(".bigPictureWrapper").css("display","flex").show();
+	
+	/* 에니메이션 */
+	$(".bigPicture").html("<img src='/display?fileName="+fileCallPath+"'>")
+					.animate({width:'100%',height:'100%'}, 1000);
+}
+
 $(function(){
 	//e.preventDefault();
 	
 	//현재 글의 글 번호 가져오기
 	let bno = ${vo.bno};
+	
+	// ------------------------ 첨부 파일 스크립트 시작 --------------------------
+	
+	//bno를 보내서 해당 게시물의 첨부파일 내역 가져오기 => ajax
+	//http://~~~~~/board/getAttachList
+	$.getJSON("getAttachList",{bno:bno},function(data){ //ajax로 가면 방식이 달라짐
+		console.log(data); //json 형태로 데이터 도착 
+		
+		let str = "";
+		
+		//첨부파일 목록을 보여줄 영역 찾아오기
+		let uploadResult = $(".uploadResult ul");
+		$(data).each(function(i, element) {
+			if(element.fileType){ //이미지
+				var fileCallPath = encodeURIComponent(element.uploadPath+"\\s_"+element.uuid+"_"+element.fileName);
+				
+				str += "<li data-path='"+ element.uploadPath +"' data-uuid='"+element.uuid+"'";
+				str += " data-filename='"+element.fileName+"' data-type='"+element.fileType+"'>";
+				str += "<div><span><a>"+element.fileName+"</span></div>";
+				str += "<img src='/display?fileName="+fileCallPath+"'></a></li>";
+			}else{ //일반파일
+				str += "<li data-path='"+ element.uploadPath +"' data-uuid='"+element.uuid+"'";
+				str += " data-filename='"+element.fileName+"' data-type='"+element.fileType+"'>";
+				str += "<div><span><a>"+element.fileName+"</span></div>";
+				str += "<img src='/resources/img/attach.png'></a></li>";
+			}
+		})
+		uploadResult.html(str);
+	}) //첨부파일 내역 종료
+	
+	//이벤트 위임(li 태그가 나중에 생기는 부분이기 때문에)
+	$(".uploadResult").on("click","li",function(){
+		//이미지 파일은 크게 보여주고, 일반 파일은 다운로드 창 띄우기
+		
+		//클릭된 객체 가져오기
+		let liObj = $(this);
+		
+		//인코딩
+		var fileCallPath = encodeURIComponent(liObj.data("path")+"\\"+liObj.data("uuid")+"_"+liObj.data("filename"));
+		if(liObj.data("type")){
+			showImage(fileCallPath.replace(new RegExp(/\\/g),"/"));
+		}else{
+			location.href="/download?fileName="+fileCallPath;			
+		}
+		
+	}) // 첨부파일 처리 종료
+	
+	//확대 사진 닫기
+	$(".bigPictureWrapper").on("click",function(){
+		$(".bigPicture").animate({width:'0%',height:'0%'},1000);
+		setTimeout(function() {
+			$(".bigPictureWrapper").hide(); //.bigPictureWrapper를 숨기는 절차
+		}, 1000);
+	})
+
+	// ------------------------ 첨부파일 스크립트 종료 --------------------------
 	
 	//댓글 영역 가져오기
 	let replyUL = $(".chat");
