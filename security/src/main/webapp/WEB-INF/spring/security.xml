@@ -5,11 +5,113 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-	<security:http>
-		<security:form-login/>
-	</security:http>
-	<security:authentication-manager>
+	<!-- <security:form-login/> : UsernamePasswordAuthenticationFilter(post)
+	 / DefaultLoginPageGeneratingFilter(get) : 만들어진 로그인 페이지가 없는 경우 동작 -->
+	<!-- SpringSecurity에서 말하는 username은 전부 아이디를 뜻함 -->
+	<!-- 
+			어플리케이션 개발시에 고려할 부분 
+		1.인증 : 회원게시판일 경우  아이디/비밀번호로 확인
+		2.인가(허가) : 특정대상을 사용할 권한이 있는지 검사 
+		3.ui 처리 : 인증이 안된 경우 어떤 페이지를 보여줄 것인가?
+				     인증이 된 경우 어떤 페이지를 보여줄 것인가?
+				     
+		/security/all => 모든 사용자가 접근 가능한 URI
+		/security/member => 로그인한 사용자들만이 접근할 수 있는 URI
+		/security/admin => 로그인한 사용자들 중에서 관리자 권한을 가진 사용자만이 접근할 수 있는 URI
+		
+	-->
 	
-	</security:authentication-manager>
+	<!-- 인증(DB) : -->
+	<!-- http://localhost:8081/ => http://localhost:8081/security/login => login 시도 => 성공하면 http://localhost:8081/ -->
+	<!-- http://localhost:8081/security/member => http://localhost:8081/security/ => 
+			login 시도 => 성공하면 http://localhost:8081/security/member -->
+	
+	<!-- 
+		spring security 환경설정 파일
+		<security:http>
+			<security:form-login/>
+		</security:http>
+		<security:authentication-manager>
+		</security:authentication-manager>
+		
+		=>http://localhost:8080/login => 기본 로그인 페이지 보여줌
+	 -->
+	
+	<bean id="customHandler" class="com.spring.handler.CustomAccessDeniedHandler" />
+	<bean id="loginSuccessHandler" class="com.spring.handler.CustomLoginSuccessHandler" />
+	
+	<!-- 패스워드인코더 -->
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	
+	<!-- 인증정보제공자 -->
+	<bean id="userDetail" class="com.spring.service.CustomUserDetailService" />
+	
+	<security:http>
+		<!-- remember-me -->
+		<!-- token-validity-seconds="604800" 604800초 만큼 유지 -->
+		<security:remember-me data-source-ref="ds" token-validity-seconds="604800"/>
+		<!-- 이 요청이 들어오면 뺏어 -->
+		<!-- 특정한 URI에 접근할 때 인터셉터 동작시키기 -->
+		<security:intercept-url pattern="/security/all" access="permitAll"/> 
+		<!-- hasRole('ROLE_MEMBER') : 특정 권한을 가지는 사용자만 접근할 수 있습니다. -->
+		<security:intercept-url pattern="/security/member" access="hasRole('ROLE_MEMBER')"/> 
+		<security:intercept-url pattern="/security/admin" access="hasRole('ROLE_ADMIN')"/>
+		<!-- 권한이 없는 URI에 접근하는 경우 동작하는 컨트롤러 작성 -->
+		<!-- <security:access-denied-handler error-page="/accessError"/> -->
+		<!-- 권한이 없는 URI에 접근시 동작하는 핸들러 작성 -->
+		<security:access-denied-handler ref="customHandler"/>
+		<security:form-login login-page="/security/login" authentication-success-handler-ref="loginSuccessHandler"/>
+		<security:form-login/>
+		<!-- session을 인발리데이트(무효화) 시킴 -->
+		<security:logout invalidate-session="true" logout-success-url="/"/>
+	</security:http>
+	
+	<!-- 사용자 인증 : DB(mybatis) -->
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="userDetail">
+			<security:password-encoder ref="bcryptPasswordEncoder"/>
+		</security:authentication-provider>	
+	</security:authentication-manager>	
+	
+	<!-- 사용자 인증을 DB를 이용할 때 -->
+	<!-- authorities-by-username-query : 권한과 관련된 커리 -->
+	<!-- <security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service data-source-ref="ds" 
+			users-by-username-query="select userid,userpw,enabled from spring_member where userid=?"
+			authorities-by-username-query="select userid,auth from spring_member_auth where userid=?"/>			
+			<security:password-encoder ref="bcryptPasswordEncoder"/>
+		</security:authentication-provider>	
+	</security:authentication-manager>	 -->
+
+	<!-- 사용자 인증을 in-memory 방식으로 할 때 -->
+	<!-- <security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service>비밀번호는 무조건 암호화가 필요
+				이부분만 DB로 바꾸면 됨
+				<security:user name="user1" password="{noop}user1" authorities="permitAll"/>
+				<security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/>
+				<security:user name="admin" password="{noop}admin" authorities="ROLE_MEMBER,ROLE_ADMIN"/>
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager> -->
 	
 </beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,12 +35,14 @@ public class BoardController {
 	@Autowired
 	private BoardService service;
 	
+	@PreAuthorize("isAuthenticated()") //인증된 사용자인 경우 true
 	@GetMapping("/register")
 	public void register() {
 		log.info("레지스터 폼");
 	}
 	
 	//글 등록하기
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register")
 	public String registerPost(BoardVO vo,RedirectAttributes rttr) {
 		log.info("글 등록 요청"+vo);
@@ -106,6 +109,7 @@ public class BoardController {
 //	}
 	
 	//내용 수정
+	@PreAuthorize("principal.username == #vo.writer")
 	@PostMapping("/modify")
 	public String modifyPost(Criteria cri,BoardVO modify,RedirectAttributes rttr) {
 		log.info(""+cri);
@@ -134,8 +138,9 @@ public class BoardController {
 	}
 	
 	//내용 삭제
+	@PreAuthorize("principal.username == #writer")
 	@PostMapping("/remove")
-	public String delete(BoardVO vo,int bno,RedirectAttributes rttr,Criteria cri) {
+	public String delete(BoardVO vo,String writer,int bno,RedirectAttributes rttr,Criteria cri) {
 		
 		//현재 글번호에 해당하는 첨부파일 목록을 서버에서 삭제하기 위해서 bno에 해당하는 첨부파일 리스트 가져오기
 		List<AttachFileVO> attachList = service.attachList(bno);

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+ 
+  <modelVersion>4.0.0</modelVersion> <!-- Maven 버전 -->
+  <groupId>com.java</groupId> <!-- 프로젝트 팀에 할당된 ID -->
+  <artifactId>eclipse-maven-app</artifactId> <!-- 프로젝트에 할당된 ID -->
+  <version>0.0.1-SNAPSHOT</version> <!-- 현재 프로그램 버전 -->
+
+  <name>eclipse-maven-app</name> <!-- 작성하는 애플리케이션 이름 -->
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url> <!-- 프로젝트 웹사이트 url -->
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies> <!-- 의존성을 적어주는 부분 : 프로젝트에서 필요한 라이브러리 기술 -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope> <!-- 라이브러리가 적용될 범위 : compile(기본), runtime, test, provided -->
+    </dependency>
+  </dependencies>
+  
+  <build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.2.0</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>com.java.eclipse_maven_app.App</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+  
+
+</project>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

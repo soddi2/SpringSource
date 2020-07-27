@@ -35,7 +35,7 @@ public class FileCheckTask {
 		return str.replace("-", File.separator); // 2020/07/21 리턴
 	}
 	
-	@Scheduled(cron="0 * * * * * ")
+	@Scheduled(cron="* * 2 * * * ")
 	public void checkFiles() {
 		log.warn("파일 체크 스케쥴링 실행.....");
 		

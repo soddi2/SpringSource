@@ -48,7 +48,7 @@ let replyService=(function(){ //익명 함수
 		
 	}//getList 종료
 	
-	function remove(param,callback,error){
+	function remove(param,replyer,callback,error){
 		let rno = param.rno;
 		
 		console.log("rno : "+rno);
@@ -56,6 +56,8 @@ let replyService=(function(){ //익명 함수
 			//url 확인 
 			url : '/replies/'+rno, // http://localhost:8081/replies/3
 			type : 'delete',
+			contentType : "application/json",
+			data : JSON.stringify({replyer : replyer}),
 			success:function(result){
 				if(callback){
 					callback(result);

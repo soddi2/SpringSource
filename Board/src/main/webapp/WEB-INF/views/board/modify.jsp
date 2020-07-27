@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/security/tags"  prefix="sec"%>
 <link rel="stylesheet" href="/resources/css/mycss.css" />
 <%@include file="../includes/header.jsp" %>
             <div class="row">
@@ -37,8 +38,15 @@
                 				</div>  
                 				<!-- submit(폼 전송),reset(폼 리셋)은 기능이 들어있음  button은 그냥 폼만 있음-->
                 				<!-- data-아무거나 와두 됌 -->
-                				<button type="submit" data-oper='modify' class="btn btn-default">Modify</button>              			
-                				<button type="submit" data-oper='remove' class="btn btn-danger">Remove</button>              			
+                				<!-- post로 가는 모든 경로는 csrf로 담기(보안) -->
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />  
+								<sec:authentication property="principal" var="info"/>
+								<sec:authorize access="isAuthenticated()">
+									<c:if test="${info.username == vo.writer}">
+		                				<button type="submit" data-oper='modify' class="btn btn-default">Modify</button>              			
+		                				<button type="submit" data-oper='remove' class="btn btn-danger">Remove</button>              			
+									</c:if>
+								</sec:authorize>
                 				<button type="submit" data-oper='list' class="btn btn-info">List</button>              			
                 			</form>
                 		</div>
@@ -67,10 +75,13 @@
 <%-- remove와 list를 위한 폼--%>
 <form method="post" id="myForm">
 	<input type="hidden" name="bno" value="${vo.bno}" />
+	<input type="hidden" name="writer" value="${vo.writer}" />
 	<input type="hidden" name="pageNum" value="${cri.pageNum}" />	
 	<input type="hidden" name="amount" value="${cri.amount}" />	
 	<input type="hidden" name="type" value="${cri.type}" /> <!-- pageVO.cri.type -->
 	<input type="hidden" name="keyword" value="${cri.keyword}" />
+	<!-- post로 가는 모든 경로는 csrf로 담기(보안) -->
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />  
 </form>
 
 <!-- 스크립트 -->
@@ -83,6 +94,9 @@ function showImage(fileCallPath){
 	                .animate({width:'100%',height:'100%'}, 1000);
 }
 $(function(){
+	//csrf 토큰 값 생성
+	let csrfHeaderName = "${_csrf.headerName}"
+	let csrfTokenValue = "${_csrf.token}"
 	
 	$("input[type='file']").change(function(){
 		//form의 형태로 테이타를 구성할 수 있음
@@ -115,6 +129,9 @@ $(function(){
 		$.ajax({
 			url : '/uploadAjax',
 			type : 'post',
+			beforeSend : function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
 			//code 추가 필수!
 			processData : false,
 			contentType : false,

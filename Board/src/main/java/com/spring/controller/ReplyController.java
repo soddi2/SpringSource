@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,7 @@ public class ReplyController {
 	@Autowired
 	private ReplyService service;
 	
+	@PreAuthorize("isAuthenticated()") //진짜 로그인 헀냐?
 	@PostMapping("/new")  //http://localhost:8080/replies/new + post
 	public ResponseEntity<String> create(@RequestBody ReplyVO vo) {
 		log.info("댓글 등록..."+vo);
@@ -52,9 +54,10 @@ public class ReplyController {
 	
 	
 	//댓글 수정하기 http://localhost:8080/replies/3 + put
+	@PreAuthorize("principal.username == #vo.replyer")
 	@PutMapping("/{rno}")
 	public ResponseEntity<String> modify(@RequestBody ReplyVO vo,@PathVariable("rno") int rno){
-		log.info("댓글 번호 "+rno+" 내용 "+vo);
+		log.info("댓글 번호 "+rno+" 내용 "+vo.getReply()+"댓글 작성자 "+vo.getReplyer());
 		
 		//rno를 vo 에 담아주기
 		vo.setRno(rno);
@@ -65,8 +68,9 @@ public class ReplyController {
 	}
 	
 	//댓글 삭제 하기 http://localhost:8080/replies/3 + rno
+	@PreAuthorize("principal.username == #vo.replyer")
 	@DeleteMapping("/{rno}")
-	public ResponseEntity<String> delete(@PathVariable("rno") int rno){
+	public ResponseEntity<String> delete(@PathVariable("rno") int rno,@RequestBody ReplyVO vo){
 		log.info("댓글 삭제 "+rno);
 		
 		return service.replyDelete(rno)?
