@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -104,6 +106,11 @@
                             <li><a href="#portfolio">Portfolio</a></li>
                             <li><a href="#test">Testimonial</a></li>
                             <li><a href="#contact">Contact</a></li>
+                            <li><a href="/register/register">Register</a></li>
+                            <!-- 팝업창 띄우기 -->
+                            <!-- <li>
+								<button onclick="window.open('/register/register','회원가입','width=410,height=490,location=no,status=no,scrollbars=no');">button</button>
+                            </li> -->
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div> 
@@ -729,7 +736,22 @@
         <script src="assets/js/plugins.js"></script>
         <script src="assets/js/main.js"></script>
 
-
+	
 
     </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

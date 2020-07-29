@@ -43,6 +43,8 @@ D:\soddi\springsource\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2026
 \Board\src\main\java
 D:\soddi\springsource\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1644223336.index
 \partner\src\main\java
+D:\soddi\springsource\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3337901477.index
+\Book_project\src\main\java
 D:\soddi\springsource\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\649549252.index
 \bookmvc\src\main\java
 D:\soddi\springsource\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\606342943.index

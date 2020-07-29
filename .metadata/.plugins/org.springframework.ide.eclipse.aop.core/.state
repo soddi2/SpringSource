@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aop-reference-model>
-<aop-project name="simpleboard_cp_mybatis"/>
 <aop-project name="simplebook_cp_jdbc"/>
+<aop-project name="simpleboard_cp_mybatis"/>
 <aop-project name="rest"/>
-<aop-project name="mybatis"/>
 <aop-project name="sample"/>
+<aop-project name="mybatis"/>
+<aop-project name="Book_project"/>
 <aop-project name="log">
 <aspect-definition advice-class-name="org.springframework.transaction.interceptor.TransactionInterceptor" advice-method-name="invoke" advice-method-parameter-types="org.aopalliance.intercept.MethodInvocation" advice-type="AROUND" aspect-end-line-number="41" aspect-name="org.springframework.transaction.interceptor.TransactionInterceptor#log#src/main/resources/config.xml#41" aspect-start-line-number="41" factory-id="org.springframework.ide.eclipse.aop.core.javaAdvisorDefinitionElementFactory" file="/log/src/main/resources/config.xml" pointcut-expression="(@within(org.springframework.transaction.annotation.Transactional) || @annotation(org.springframework.transaction.annotation.Transactional)) &amp;&amp; execution(* *..*(..))" proxy-target-class="false">
 <aop-reference advice-type="AROUND" bean="1:BeansModel|2:log|3:src/main/resources/config.xml|7:beans:12|8:sample:12" bean-file="/log/src/main/resources/config.xml" bean-start-line="12" factory-id="org.springframework.ide.eclipse.aop.core.aopReferenceElementFactory" file="/log/src/main/resources/config.xml" source="=Board/C:\/Users\/students\/.m2\/repository\/org\/springframework\/spring-tx\/5.2.4.RELEASE\/spring-tx-5.2.4.RELEASE.jar=/maven.pomderived=/true=/=/org.eclipse.jst.component.dependency=/\/WEB-INF\/lib=/=/maven.pomderived=/true=/=/org.eclipse.jst.component.archivename=/spring-tx-5.2.4.RELEASE.jar=/=/maven.groupId=/org.springframework=/=/maven.artifactId=/spring-tx=/=/maven.version=/5.2.4.RELEASE=/=/maven.scope=/compile=/&lt;org.springframework.transaction.interceptor(TransactionInterceptor.class[TransactionInterceptor~invoke~Lorg.aopalliance.intercept.MethodInvocation;" source-start-line="-1" target="=log/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.service{SampleServiceImpl.java[SampleServiceImpl~addData~QString;" target-start-line="21"/>
