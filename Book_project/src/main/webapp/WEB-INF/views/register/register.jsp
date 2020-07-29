@@ -25,10 +25,11 @@
                     <input type="checkbox" class="checkbox"><span>Remember Password</span>
                     <button class="submit">Login</button>
                 </form>
-                <form id="register" action="" class="input-group">
-                    <input type="text" class="input-field" placeholder="User name or Email" required>
-                    <input type="email" class="input-field" placeholder="Your Email" required>
-                    <input type="password" class="input-field" placeholder="Enter Password" required>
+                <form id="register" method="post" action="" class="input-group">
+                    <input type="text" name="userid" class="input-field" placeholder="아이디를 입력해주세요." required>
+                    <input type="password" name="password" class="input-field" placeholder="비밀번호를 입력해주세요." required>
+                    <input type="email" name="email" class="input-field" placeholder="이메일을 입력해주세요." required>
+                    <input type="text" name="address" class="input-field" placeholder="주소를 입력해주세요." required>
                     <input type="checkbox" class="checkbox"><span>Terms and conditions</span>
                     <button class="submit">REGISTER</button>
                 </form>
