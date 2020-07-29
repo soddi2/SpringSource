@@ -15,4 +15,7 @@ public class BoardController {
 	public void board() {
 		log.info("list Form");
 	}
+
+	public void test(){
+	}
 }
