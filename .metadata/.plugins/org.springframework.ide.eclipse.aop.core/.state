@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aop-reference-model>
-<aop-project name="simplebook_cp_jdbc"/>
 <aop-project name="simpleboard_cp_mybatis"/>
+<aop-project name="simplebook_cp_jdbc"/>
 <aop-project name="rest"/>
-<aop-project name="sample"/>
 <aop-project name="mybatis"/>
+<aop-project name="sample"/>
 <aop-project name="Book_project"/>
 <aop-project name="log">
 <aspect-definition advice-class-name="org.springframework.transaction.interceptor.TransactionInterceptor" advice-method-name="invoke" advice-method-parameter-types="org.aopalliance.intercept.MethodInvocation" advice-type="AROUND" aspect-end-line-number="41" aspect-name="org.springframework.transaction.interceptor.TransactionInterceptor#log#src/main/resources/config.xml#41" aspect-start-line-number="41" factory-id="org.springframework.ide.eclipse.aop.core.javaAdvisorDefinitionElementFactory" file="/log/src/main/resources/config.xml" pointcut-expression="(@within(org.springframework.transaction.annotation.Transactional) || @annotation(org.springframework.transaction.annotation.Transactional)) &amp;&amp; execution(* *..*(..))" proxy-target-class="false">
