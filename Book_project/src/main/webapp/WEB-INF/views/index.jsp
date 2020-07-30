@@ -129,7 +129,7 @@
                                 <div class="hello">
                                     <div class="slid_item">
                                         <div class="home_text ">
-                                            <h1 class="text-yellow">Welcome to Made</h1>
+                                            <h1 class="text-yellow"> Welcome to Library </h1>
                                             <h3 class="text-white text-uppercase">We Create a Concept into The Market </h3>
                                         </div>
                                     </div><!-- End off slid item -->

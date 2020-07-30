@@ -69,8 +69,8 @@ body {
 				</div>
 			</form>
 			<div >
-				<button type="button" class="btn btn-sm btn-primary" id="btnSave">저장</button>
-				<button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
+				<button type="submit" class="btn btn-sm btn-primary" id="btnSave">저장</button>
+				<button type="submit" class="btn btn-sm btn-primary" id="btnList">목록</button>
 			</div>
 		</div>
 	</article>

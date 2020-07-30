@@ -27,7 +27,7 @@ margin-top: 30px;
 <article>
 	<div class="container">
 		<div class="table-responsive">
-			<h2>board list</h2>
+			<h2>Board List</h2>
 			<table class="table table-striped table-sm">
 				<colgroup>
 					<col style="width:5%;" />
