@@ -5,6 +5,9 @@
     <head>
         <title>로그인 / 회원가입 폼 템플릿</title>
         <link rel="stylesheet" href="/assets/css/register_style.css">
+        <!-- Bootstrap CSS -->
+
+
     </head>
     <body>
         <div class="wrap">
